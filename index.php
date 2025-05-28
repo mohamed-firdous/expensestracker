@@ -48,20 +48,6 @@ $this_week_expense_amount = '0' + mysqli_fetch_assoc($this_week_expense)['SUM(ex
 $this_month_expense_amount = '0' + mysqli_fetch_assoc($this_month_expense)['SUM(expense)'];
 $this_year_expense_amount = '0' + mysqli_fetch_assoc($this_year_expense)['SUM(expense)'];
 $total_expense_amount = '0' + mysqli_fetch_assoc($total_expense)['SUM(expense)'];
-// Fetch budget for current month
-$current_month = date("Y-m");
-$budget_query = "SELECT budget_amount FROM budgets WHERE user_id = '$userid' AND DATE_FORMAT(budget_month, '%Y-%m') = '$current_month' LIMIT 1";
-$budget_result = mysqli_query($con, $budget_query);
-$budget_amount = 0;
-
-if ($row = mysqli_fetch_assoc($budget_result)) {
-    $budget_amount = $row['budget_amount'];
-}
-
-// Calculate remaining budget
-$remaining_budget = $budget_amount - $this_month_expense_amount;
-$budget_status = ($budget_amount > 0) ? round(($this_month_expense_amount / $budget_amount) * 100, 2) : 0;
-
 
 ?>
 <!DOCTYPE html>
@@ -223,28 +209,6 @@ $budget_status = ($budget_amount > 0) ? round(($this_month_expense_amount / $bud
     </div>
   </div>
 </div>
-          <div class="col-md-3">
-  <div class="card text-center">
-    <div class="card-body">
-      <h5 class="card-title">Monthly Budget</h5>
-      <p class="card-text">₹<?php echo $budget_amount; ?></p>
-      <p class="card-title small text-muted">Remaining: ₹<?php echo $remaining_budget; ?></p>
-      <div class="progress">
-        <div class="progress-bar 
-          <?php echo ($budget_status > 100) ? 'bg-danger' : (($budget_status > 75) ? 'bg-warning' : 'bg-success'); ?>" 
-          role="progressbar" 
-          style="width: <?php echo min($budget_status, 100); ?>%;" 
-          aria-valuenow="<?php echo $budget_status; ?>" 
-          aria-valuemin="0" 
-          aria-valuemax="100">
-          <?php echo $budget_status; ?>%
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 
           <!-- Daily Expenses Chart -->
           <div class="col-md-6">
