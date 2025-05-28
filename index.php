@@ -209,6 +209,18 @@ $total_expense_amount = '0' + mysqli_fetch_assoc($total_expense)['SUM(expense)']
     </div>
   </div>
 </div>
+          <div class="container mt-4">
+    <h4>Set Monthly Budget</h4>
+    <form action="set_budget.php" method="POST">
+        <div class="form-group">
+            <label for="budget_amount">Budget Amount (₹):</label>
+            <input type="number" class="form-control" id="budget_amount" name="budget_amount" required>
+        </div>
+        <input type="hidden" name="month_year" value="<?php echo date('Y-m'); ?>">
+        <button type="submit" class="btn btn-primary">Set Budget</button>
+    </form>
+</div>
+
 
           <!-- Daily Expenses Chart -->
           <div class="col-md-6">
