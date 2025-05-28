@@ -49,3 +49,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <a href="index.php">Back to Dashboard</a>
 </body>
 </html>
+
+.budget-card {
+    border: 3px solid #28a745; /* bootstrap green */
+    background-color: #e9f7ef; /* light green background */
+    color: #155724; /* dark green text */
+    border-radius: 5px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.budget-btn {
+    background-color: #28a745;
+    border: 1px solid #28a745;
+    color: white;
+}
+
+.budget-btn:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    color: white;
+}
+<div class="container mt-4">
+  <div class="row">
+    <!-- Your expense cards like Today's Expense, Yesterday's Expense etc. -->
+  </div>
+</div>
+<div class="container mt-4">
+    <h4>Set Monthly Budget</h4>
+    <form action="set_budget.php" method="POST" class="mb-3">
+        <div class="form-group">
+            <label for="budget_amount">Budget Amount (₹):</label>
+            <input type="number" class="form-control" id="budget_amount" name="budget_amount" required>
+        </div>
+        <input type="hidden" name="month_year" value="<?php echo date('Y-m'); ?>">
+        <button type="submit" class="btn budget-btn mt-2">Set Budget</button>
+    </form>
+</div>
+
+<?php
+$current_month = date('Y-m');
+$budget_query = mysqli_query($con, "SELECT budget_amount FROM budgets WHERE user_id = '$userid' AND month_year = '$current_month'");
+$current_budget = mysqli_fetch_assoc($budget_query);
+$current_budget_amount = $current_budget ? $current_budget['budget_amount'] : 0;
+?>
+
+<div class="card text-center budget-card">
+    <div class="card-body">
+        <h5 class="card-title">Current Month Budget</h5>
+        <p class="card-text">₹<?php echo $current_budget_amount; ?></p>
+    </div>
+</div>
