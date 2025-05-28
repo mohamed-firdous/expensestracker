@@ -49,8 +49,8 @@ The Expense Tracking Database Management System `DBMS` project is a user-friendl
 2. **Default Login Credentials**
 
    - Upon accessing the web application for the first time, use the following default login credentials:
-     - **Email** : anjalita@sjec.in
-     - **Password** : asdf1973
+     - **Email** : mohamedfirdous2910@gmail.com 
+     - **Password** : 123
 
 3. **Work on the Project:**
    - Any changes made within the cloned repository will reflect on the localhost URL (e.g., `http://localhost/DailyExpense-System`).
